@@ -1,0 +1,8 @@
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('payment/', include('payment.urls')),  # Include payment app's URLs
+    # Other project-level URLs
+]

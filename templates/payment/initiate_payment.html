@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Initiate Payment</title>
+  </head>
+  <body>
+    <h1>Initiate Payment</h1>
+    <form id="payment-form" method="post">
+      <!-- Payment form fields go here -->
+      {% csrf_token %}
+      <label for="card-number">Card Number:</label>
+      <input type="text" id="card-number" name="card-number" required /><br />
+      <label for="card-expiry">Expiry Date:</label>
+      <input type="text" id="card-expiry" name="card-expiry" required /><br />
+      <label for="card-cvc">CVC:</label>
+      <input type="text" id="card-cvc" name="card-cvc" required /><br />
+      <input type="submit" value="Pay" />
+    </form>
+    <div id="payment-status"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% comment %}
+    <script>
+      // Your jQuery code for frontend interactions
+      $(document).ready(function () {
+        $("#payment-form").on("submit", function (e) {
+          e.preventDefault();
+          // Perform client-side validation and AJAX request to the server for payment initiation
+          $.ajax({
+            type: "POST",
+            url: "{% url 'payment_initiate' %}",
+            data: $(this).serialize(),
+            success: function (response) {
+              console.log(response);
+              // Redirect to the payment gateway or display an error message
+              if (response.redirect) {
+                //  window.location.href = response.redirect;
+              } else {
+                //$("#payment-status").html(response.message);
+              }
+            },
+            error: function () {
+              $("#payment-status").html(
+                "Payment initiation failed. Please try again."
+              );
+            },
+          });
+        });
+      });
+    </script>
+    {% endcomment %}
+  </body>
+</html>
